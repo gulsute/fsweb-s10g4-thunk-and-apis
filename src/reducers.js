@@ -29,12 +29,13 @@ function readFavsFromLocalStorage() {
 export function myReducer(state = initial, action) {
   switch (action.type) {
     case FAV_ADD:
+      ToasterStatus = toast.info("Aktivite favorilere eklendi !");
       return { ...state, favs: [...state.favs, action.payload] };
 
     case FAV_REMOVE:
       return {
         ...state,
-        favs: state.favs.filter((item) => item !== action.payload),
+        favs: state.favs.filter((item) => item.id !== action.payload),
       };
 
     case FETCH_LOADING:
