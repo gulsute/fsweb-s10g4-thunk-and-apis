@@ -3,18 +3,26 @@ import { Switch, Route, NavLink } from "react-router-dom";
 import Item from "./components/Item";
 import FavItem from "./components/FavItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAnother } from "./actions";
+import { removeFav, addFav, fetchAnother } from "./actions";
 import { useEffect } from "react";
 
 export default function App() {
   const { loading, current, favs, error } = useSelector((state) => state);
 
-  function addToFavs() {}
+  function addToFavs() {
+    if (current) {
+      dispatch(addFav(current));
+    }
+  }
+
+  const getir = () => {
+    dispatch(fetchAnother());
+  };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAnother());
+    getir();
   }, []);
 
   return (
@@ -46,14 +54,16 @@ export default function App() {
 
           <div className="flex gap-3 justify-end py-3">
             <button
-              onClick={() => dispatch(fetchAnother())}
-              className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500"
+              onClick={getir}
+              disabled={loading}
+              className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500 disabled:opacity-20"
             >
               Başka bir tane
             </button>
             <button
               onClick={addToFavs}
-              className="select-none px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white"
+              disabled={loading}
+              className="select-none px-4 py-2 bg-blue-700 hover:bg-blue-600 disabled:opacity-20 text-white"
             >
               Favorilere ekle
             </button>

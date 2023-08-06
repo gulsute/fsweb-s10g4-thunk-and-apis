@@ -43,6 +43,7 @@ export function myReducer(state = initial, action) {
         ...state,
         loading: true,
         error: null,
+        current: null,
       };
 
     case FETCH_SUCCESS:
