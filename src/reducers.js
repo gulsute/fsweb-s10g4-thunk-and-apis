@@ -27,16 +27,23 @@ function readFavsFromLocalStorage() {
 }
 
 export function myReducer(state = initial, action) {
+  let newState;
   switch (action.type) {
     case FAV_ADD:
       ToasterStatus = toast.info("Aktivite favorilere eklendi !");
-      return { ...state, favs: [...state.favs, action.payload] };
+      newState = { ...state, favs: [...state.favs, action.payload] };
+      writeFavsToLocalStorage(newState);
+      return newState;
 
     case FAV_REMOVE:
-      return {
+      ToasterStatus = toast.warning("Aktivite favorilerden çıkarıldı :(");
+      newState = {
         ...state,
-        favs: state.favs.filter((item) => item.id !== action.payload),
+        favs: state.favs.filter((activity) => activity.id !== action.payload),
       };
+      writeFavsToLocalStorage(newState);
+
+      return newState;
 
     case FETCH_LOADING:
       ToasterStatus = toast.loading("Aktivite yükleniyor...");
@@ -66,7 +73,7 @@ export function myReducer(state = initial, action) {
       return { state, error: action.payload, loading: false };
 
     case GET_FAVS_FROM_LS:
-      return state;
+      return { ...state, favs: readFavsFromLocalStorage() || [] };
 
     default:
       return state;

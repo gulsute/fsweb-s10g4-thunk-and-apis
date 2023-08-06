@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeFav } from "../actions";
+import { FAV_REMOVE, removeFav } from "../actions";
 
 function FavItem({ title }) {
   const dispatch = useDispatch();

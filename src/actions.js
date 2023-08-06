@@ -16,8 +16,8 @@ export const addFav = (info) => {
   return { type: FAV_ADD, payload: info };
 };
 
-export const removeFav = (item) => {
-  return { type: FAV_REMOVE, payload: item.activity };
+export const removeFav = (id) => {
+  return { type: FAV_REMOVE, payload: id.activity };
 };
 
 export const fetchAnother = () => (dispatch) => {
