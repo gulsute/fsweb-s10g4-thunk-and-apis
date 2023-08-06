@@ -4,15 +4,18 @@ import Item from "./components/Item";
 import FavItem from "./components/FavItem";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAnother } from "./actions";
+import { useEffect } from "react";
 
 export default function App() {
-  const loading = false;
-  const current = null;
-  const favs = [];
+  const { loading, current, favs, error } = useSelector((state) => state);
 
   function addToFavs() {}
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAnother());
+  }, []);
 
   return (
     <div className="wrapper max-w-xl mx-auto px-4">

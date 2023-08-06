@@ -25,6 +25,8 @@ export const fetchAnother = () => (dispatch) => {
 
   return axios
     .get("https://www.boredapi.com/api/activity")
-    .then((response) => dispatch({ type: FETCH_SUCCESS, payload: response }))
-    .catch((error) => console.log(error));
+    .then((response) =>
+      dispatch({ type: FETCH_SUCCESS, payload: response.data })
+    )
+    .catch((error) => dispatch({ type: FETCH_ERROR, payload: error.message }));
 };
